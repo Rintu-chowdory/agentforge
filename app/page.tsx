@@ -103,6 +103,10 @@ export default function Page() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <div className="winter-scene" aria-hidden="true">
+        <img src="/winter-trees.png" alt="" className="winter-image" />
+        <div className="winter-image-tint" />
+      </div>
       <div className="snowfall" aria-hidden="true">
         {snowflakes.map((flake) => (
           <span

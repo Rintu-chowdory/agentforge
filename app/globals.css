@@ -14,10 +14,14 @@
 html { scroll-behavior: smooth; }
 body { @apply bg-background text-foreground; margin: 0; font-family: Arial, Helvetica, sans-serif; overflow-x: hidden; }
 button, input { font: inherit; }
+.winter-scene { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; background: #9cc7e8; }
+.winter-image { position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover; object-position: center 48%; opacity: .5; filter: saturate(.8) contrast(.9); animation: winter-drift 18s ease-in-out infinite alternate; }
+.winter-image-tint { position: absolute; inset: 0; background: linear-gradient(180deg, oklch(.16 .04 250 / 72%), oklch(.2 .04 220 / 48%) 46%, oklch(.08 .03 240 / 82%)), radial-gradient(circle at 72% 25%, oklch(.82 .08 190 / 22%), transparent 34%); mix-blend-mode: multiply; }
 .snowfall { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
 .snowflake { position: absolute; top: -12px; display: block; border-radius: 999px; background: color-mix(in oklch, white 82%, var(--accent)); filter: blur(.15px); box-shadow: 0 0 8px color-mix(in oklch, white 40%, transparent); animation: snowfall linear infinite; will-change: transform; }
 .app-header, .main-content, .app-footer { position: relative; z-index: 2; }
 @keyframes snowfall { 0% { transform: translate3d(0, -12px, 0) rotate(0deg); } 50% { transform: translate3d(var(--snow-drift), 52vh, 0) rotate(180deg); } 100% { transform: translate3d(calc(var(--snow-drift) * -0.7), 108vh, 0) rotate(360deg); } }
+@keyframes winter-drift { from { transform: scale(1.02) translate3d(-1%, -1%, 0); } to { transform: scale(1.1) translate3d(1%, 1%, 0); } }
 button { cursor: pointer; }
 .page-shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
 .app-header { border-bottom: 1px solid color-mix(in oklch, var(--border) 75%, transparent); background: color-mix(in oklch, var(--background) 86%, transparent); backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 10; }
