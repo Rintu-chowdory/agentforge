@@ -16,6 +16,10 @@ import {
   ShieldCheck,
   Sparkles,
   TriangleAlert,
+  MailCheck,
+  Link2,
+  Radar,
+  ScanSearch,
   XCircle,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -166,12 +170,21 @@ export default function Page() {
           </div>
         </section>
 
+        <section id="tools" className="tools-section" aria-labelledby="tools-title">
+          <div className="section-heading"><div><div className="eyebrow"><Radar aria-hidden="true" /> More ways to check</div><h2 id="tools-title">Your verification toolkit.</h2></div><span className="tool-hint">Built into every check</span></div>
+          <div className="tools-grid">
+            <article className="tool-card"><span className="tool-icon tool-blue"><MailCheck aria-hidden="true" /></span><h3>Email health</h3><p>Spot risky addresses, disposable inboxes, and invalid formats.</p><button type="button" onClick={() => { setValue('hello@example.com'); document.getElementById('verify-input')?.focus() }}>Try an email <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-mint"><Link2 aria-hidden="true" /></span><h3>Link safety</h3><p>Review a URL before you click, share, or send it to your team.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Check a link <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-violet"><ScanSearch aria-hidden="true" /></span><h3>Domain signals</h3><p>Understand domain activity with a quick, readable confidence scan.</p><button type="button" onClick={() => { setValue('example.com'); document.getElementById('verify-input')?.focus() }}>Scan a domain <ArrowUpRight aria-hidden="true" /></button></article>
+          </div>
+        </section>
+
         <section id="how-it-works" className="steps-section" aria-labelledby="steps-title">
           <div><div className="eyebrow"><Clock3 aria-hidden="true" /> Built for momentum</div><h2 id="steps-title">Clarity in three steps.</h2></div>
           <div className="steps-grid"><div className="step"><span>01</span><h3>Paste your value</h3><p>Start with an email, URL, or domain that needs a quick confidence check.</p></div><div className="step"><span>02</span><h3>We check the signals</h3><p>vercheck looks at the details that help you separate signal from noise.</p></div><div className="step"><span>03</span><h3>Make your call</h3><p>Get a direct result that helps you decide what to do next.</p></div></div>
         </section>
       </div>
-      <footer id="about" className="app-footer"><div className="page-shell"><span>vercheck</span><span>Verification, without the guesswork.</span><span>© 2026 vercheck</span></div></footer>
+      <footer id="about" className="app-footer"><div className="page-shell"><span>vercheck</span><a href="mailto:chowdorydevops@gmail.com">chowdorydevops@gmail.com</a><span>© 2026 vercheck</span></div></footer>
     </main>
   )
 }
