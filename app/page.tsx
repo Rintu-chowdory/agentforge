@@ -91,8 +91,35 @@ export default function Page() {
     }, 650)
   }
 
+  const snowflakes = useMemo(() => Array.from({ length: 42 }, (_, index) => ({
+    id: index,
+    left: `${(index * 37) % 100}%`,
+    size: `${3 + ((index * 11) % 6)}px`,
+    delay: `${-((index * 1.7) % 14)}s`,
+    duration: `${9 + ((index * 13) % 10)}s`,
+    drift: `${-35 + ((index * 17) % 70)}px`,
+    opacity: `${0.28 + ((index * 7) % 55) / 100}`,
+  })), [])
+
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <div className="snowfall" aria-hidden="true">
+        {snowflakes.map((flake) => (
+          <span
+            key={flake.id}
+            className="snowflake"
+            style={{
+              left: flake.left,
+              width: flake.size,
+              height: flake.size,
+              animationDelay: flake.delay,
+              animationDuration: flake.duration,
+              ['--snow-drift' as string]: flake.drift,
+              opacity: flake.opacity,
+            }}
+          />
+        ))}
+      </div>
       <header className="app-header">
         <div className="page-shell header-inner">
           <a href="#top" className="brand" aria-label="vercheck home">
