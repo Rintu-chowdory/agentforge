@@ -4,6 +4,10 @@ import { FormEvent, useMemo, useState } from 'react'
 import {
   Accessibility,
   Activity,
+  CloudCog,
+  FileWarning,
+  Link2Off,
+  ServerCog,
   ArrowUpRight,
   Check,
   CheckCircle2,
@@ -221,6 +225,10 @@ export default function Page() {
             <article className="tool-card"><span className="tool-icon tool-amber"><LockKeyhole aria-hidden="true" /></span><h3>Security posture</h3><p>Spot trust gaps in links and domains before they reach your customers.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Review security <ArrowUpRight aria-hidden="true" /></button></article>
             <article className="tool-card"><span className="tool-icon tool-cyan"><Gauge aria-hidden="true" /></span><h3>Performance pulse</h3><p>Get a quick signal on whether a web destination is ready to share.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Run pulse check <ArrowUpRight aria-hidden="true" /></button></article>
             <article className="tool-card"><span className="tool-icon tool-rose"><Accessibility aria-hidden="true" /></span><h3>Accessibility scan</h3><p>Make your important pages easier for every person to use.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Check accessibility <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-sky"><CloudCog aria-hidden="true" /></span><h3>DNS health</h3><p>Inspect domain records and spot configuration issues before they spread.</p><button type="button" onClick={() => { setValue('example.com'); document.getElementById('verify-input')?.focus() }}>Check DNS <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-slate"><ServerCog aria-hidden="true" /></span><h3>Headers audit</h3><p>Review essential HTTP security headers for a safer web presence.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Audit headers <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-orange"><Link2Off aria-hidden="true" /></span><h3>Broken links</h3><p>Find dead destinations and keep the links your visitors rely on healthy.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Find broken links <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-yellow"><FileWarning aria-hidden="true" /></span><h3>Uptime watch</h3><p>Confirm a destination is reachable and identify moments that need attention.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Check uptime <ArrowUpRight aria-hidden="true" /></button></article>
           </div>
         </section>
 
