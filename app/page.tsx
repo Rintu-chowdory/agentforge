@@ -2,6 +2,8 @@
 
 import { FormEvent, useMemo, useState } from 'react'
 import {
+  Accessibility,
+  Activity,
   ArrowUpRight,
   Check,
   CheckCircle2,
@@ -18,6 +20,8 @@ import {
   TriangleAlert,
   MailCheck,
   Link2,
+  LockKeyhole,
+  Gauge,
   Radar,
   ScanSearch,
   XCircle,
@@ -191,6 +195,13 @@ export default function Page() {
           </div>
         </section>
 
+        <section className="overview-strip" aria-label="Workspace overview">
+          <div className="overview-item"><span className="overview-icon"><Activity aria-hidden="true" /></span><span><strong>{stats.total}</strong><small>Total checks</small></span></div>
+          <div className="overview-item"><span className="overview-icon overview-green"><CheckCircle2 aria-hidden="true" /></span><span><strong>{stats.total ? Math.round((stats.verified / stats.total) * 100) : 0}%</strong><small>Confidence rate</small></span></div>
+          <div className="overview-item"><span className="overview-icon overview-blue"><Clock3 aria-hidden="true" /></span><span><strong>&lt; 1 sec</strong><small>Average response</small></span></div>
+          <div className="overview-note"><Sparkles aria-hidden="true" /><span>Every result is explained in plain language.</span></div>
+        </section>
+
         <section id="history" className="history-section" aria-labelledby="history-title">
           <div className="section-heading"><div><div className="eyebrow"><History aria-hidden="true" /> Your workspace</div><h2 id="history-title">Recent checks</h2></div><span className="count-pill">{stats.verified} of {stats.total} verified</span></div>
           <div className="history-list">
@@ -207,6 +218,9 @@ export default function Page() {
             <article className="tool-card"><span className="tool-icon tool-blue"><MailCheck aria-hidden="true" /></span><h3>Email health</h3><p>Spot risky addresses, disposable inboxes, and invalid formats.</p><button type="button" onClick={() => { setValue('hello@example.com'); document.getElementById('verify-input')?.focus() }}>Try an email <ArrowUpRight aria-hidden="true" /></button></article>
             <article className="tool-card"><span className="tool-icon tool-mint"><Link2 aria-hidden="true" /></span><h3>Link safety</h3><p>Review a URL before you click, share, or send it to your team.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Check a link <ArrowUpRight aria-hidden="true" /></button></article>
             <article className="tool-card"><span className="tool-icon tool-violet"><ScanSearch aria-hidden="true" /></span><h3>Domain signals</h3><p>Understand domain activity with a quick, readable confidence scan.</p><button type="button" onClick={() => { setValue('example.com'); document.getElementById('verify-input')?.focus() }}>Scan a domain <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-amber"><LockKeyhole aria-hidden="true" /></span><h3>Security posture</h3><p>Spot trust gaps in links and domains before they reach your customers.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Review security <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-cyan"><Gauge aria-hidden="true" /></span><h3>Performance pulse</h3><p>Get a quick signal on whether a web destination is ready to share.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Run pulse check <ArrowUpRight aria-hidden="true" /></button></article>
+            <article className="tool-card"><span className="tool-icon tool-rose"><Accessibility aria-hidden="true" /></span><h3>Accessibility scan</h3><p>Make your important pages easier for every person to use.</p><button type="button" onClick={() => { setValue('https://example.com'); document.getElementById('verify-input')?.focus() }}>Check accessibility <ArrowUpRight aria-hidden="true" /></button></article>
           </div>
         </section>
 
