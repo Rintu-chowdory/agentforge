@@ -1,9 +1,11 @@
 import { Check, Globe2, Link2, Mail, ShieldCheck, TriangleAlert } from 'lucide-react'
 import Verifier from '@/components/Verifier'
+import WinterBackdrop from '@/components/WinterBackdrop'
 
 export default function Page() {
   return (
     <>
+      <WinterBackdrop />
       <header className="site-header">
         <div className="shell header-inner">
           <a className="brand" href="#top">
@@ -22,7 +24,7 @@ export default function Page() {
         </div>
       </header>
 
-      <main className="shell" id="top">
+      <main className="shell page-layer" id="top">
         <section className="hero">
           <div>
             <h1>
