@@ -1,33 +1,62 @@
-# agentforge
+# vercheck
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+Paste an email address, a domain or a link; vercheck measures it and shows every signal it
+read. Live at https://agentforge-theta-three.vercel.app
 
-## Built with v0
+## Why it was rebuilt
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+The first version was a landing page with no verification behind it: the verdict came from
+hashing the input (`hash % 7 === 0 ? 'failed' : ...`), and the counters, history and confidence
+rate were hardcoded. A green "Verified" badge meant nothing.
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_0AAFZCYcdPkwQSOzSqo0DmWf8C4H)
+Now each report is produced by an actual lookup, and anything that cannot be measured is
+reported as **not tested** rather than passed.
 
-## Getting Started
+## What a check reads
 
-First, run the development server:
+| Target | Signals |
+| --- | --- |
+| Email | syntax and length limits · MX records (with A-record fallback) · throwaway provider list · role mailbox detection |
+| Domain | A and AAAA records over DNS-over-HTTPS · existence (NXDOMAIN is distinguished from empty records) · private-address detection |
+| URL | everything above · real HTTP request with status and timing · redirect chain (max five hops) · TLS certificate issuer, protocol and days to expiry · HSTS, CSP, nosniff, frame protection |
+
+Details worth knowing:
+
+- DNS is resolved over **DNS-over-HTTPS** (Cloudflare, then Google as fallback), so it works
+  from a serverless function without a resolver library.
+- The certificate is read with a real `tls.connect`, which is why `/api/verify` runs on the
+  Node runtime instead of the edge.
+- A request that times out is reported as *untested*, not *failed*: a slow network is not
+  evidence about the target.
+- The endpoint refuses local, private and IP-literal hosts, and caps redirects, timeouts and
+  body downloads so it cannot be used as a port scanner.
+- 12 checks per minute per IP, best effort per instance.
+
+## What it explicitly cannot tell you
+
+- Whether a specific mailbox exists. That needs SMTP probing or sending real mail.
+- Whether a site is trustworthy, only whether it is technically sound.
+- Reputation or blocklist data, which is not queried.
+
+## Stack
+
+Next.js 16 (App Router) · React 19 · TypeScript (build fails on type errors) · CSS custom
+properties with automatic dark mode via `prefers-color-scheme` · no database, no account,
+history in `localStorage`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+pnpm install
+pnpm dev     # http://localhost:3000
+pnpm build   # typecheck + production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+No environment variables are required.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Layout
 
-## Learn More
-
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+```
+app/page.tsx            marketing sections, server-rendered
+app/api/verify/route.ts POST endpoint, Node runtime, per-IP throttle
+components/Verifier.tsx client tool, report rendering, localStorage history
+lib/verify.ts           DNS / HTTP / TLS measurements and scoring
+```
